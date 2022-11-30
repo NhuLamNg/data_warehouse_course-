@@ -34,5 +34,5 @@ select
   a.*
   ,b.*
 from final a
-left join {{ ref(`vit-lam-data-course.wide_world_importers_dwh_staging.stg_fact_sales_order`)}} b
+left join {{ ref('stg_fact_sales_order')}} b
 on a.sales_order_line_key = b.sale_order_key

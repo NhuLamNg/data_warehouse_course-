@@ -5,13 +5,13 @@ from `vit-lam-data.wide_world_importers.sales__orders`
 )
 , a_name as (
   select
-    order_id as sale_order_key
+    order_id as sales_order_key
   ,customer_id as customer_key
   from model
 )
 ,b_type as (
   select
-  cast(sale_order_key as integer ) as sale_order_key
+  cast(sales_order_key as integer ) as sales_order_key
   ,cast(customer_key as integer) as customer_key
   from a_name
 )

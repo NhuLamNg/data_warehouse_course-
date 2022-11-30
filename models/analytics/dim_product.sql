@@ -8,6 +8,7 @@ with dim_product__source as (
     stock_item_id  as product_key
     ,stock_item_name  as product_name
     ,brand as brand_name
+    ,supplier_id as supplier_key
   FROM dim_product__source ) 
 
 ,dim_product__cast_type as (
@@ -15,12 +16,17 @@ with dim_product__source as (
     cast(product_key as integer) as product_key
     ,cast(product_name as string) as product_name
     ,cast(brand_name as string) as brand_name
+    ,cast(supplier_key as integer) as supplier_key
   from dim_product_rename__column
 )
 
 select 
-  product_key
-  ,product_name
-  ,brand_name
-from dim_product__cast_type
+  dim_product.product_key
+  ,dim_product.product_name
+  ,dim_product.brand_name
+  ,dim_product.supplier_key
+  ,dim_supplier.supplier_name
+from dim_product__cast_type as dim_product
+left join {{ref('dim_supplier')}} as dim_supplier
+on dim_product.supplier_key = dim_supplier.supplier_key
 
